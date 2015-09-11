@@ -27,12 +27,12 @@ public class MainActivity extends Activity {
     String testImageUrl = "http://i.imgur.com/ZzcDHhn.png";
     String testGsonUrl = "https://api.tumblr.com/v2/blog/scipsy.tumblr.com/info?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4";
 
-
     //views
     NetworkImageView errorNIV;
     NetworkImageView demoNIV;
     CircleNetworkImageView demoCNIV;
     EditText demoEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,16 +62,16 @@ public class MainActivity extends Activity {
         // get the json oject from internet and use GSON to save it
         GsonRequest<GsonTumblr> getTumblrReuest = new GsonRequest<GsonTumblr>(
                 Request.Method.GET, testGsonUrl, GsonTumblr.class,
-                createGetNotificationReqSuccessListener(),
-                createNotificationReqErrorListener());
+                createGetReqSuccessListener(),
+                createReqErrorListener());
 
         getTumblrReuest.setRetryPolicy(new DefaultRetryPolicy(7000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        getTumblrReuest.setTag("getNotification");
+        getTumblrReuest.setTag("getTumblrReuest");
         VolleySingleton.getInstance(context).getRequestQueue().add(getTumblrReuest);
     }
 
-    private Response.Listener<GsonTumblr> createGetNotificationReqSuccessListener(
+    private Response.Listener<GsonTumblr> createGetReqSuccessListener(
     ) {
 
         return new Response.Listener<GsonTumblr>() {
@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
         };
     }
 
-    private Response.ErrorListener createNotificationReqErrorListener() {
+    private Response.ErrorListener createReqErrorListener() {
 
         return new Response.ErrorListener() {
             @Override
