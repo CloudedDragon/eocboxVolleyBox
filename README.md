@@ -24,50 +24,91 @@ This is a toolbox for integration of [Android Volley library](https://android.go
 
 
 ## Screenshot
+* *Demo for get image from internet*
 ![](https://github.com/CloudedDragon/eocboxVolleyBox/blob/master/demo.png)
-
+* *Demo for get JSON from Tumblr test api and save it with GSON Library*
+![](https://github.com/CloudedDragon/eocboxVolleyBox/blob/master/demo2.png)
 
 ## Statement
 The project is just for research purpose,not as a commercial activity.
-
-
 
 ## Example
 
 ``` java
 public class MainActivity extends Activity {
-
+    private final static String TAG = "MainActivity";
     Context context;
 
-    String errorUrl = null;
-    String testUrl = "http://i.imgur.com/ZzcDHhn.png";
+    String errorUrl = "http://";
+    String testImageUrl = "http://i.imgur.com/ZzcDHhn.png";
+    String testGsonUrl = "https://api.tumblr.com/v2/blog/scipsy.tumblr.com/info?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4";
+
+    //views
+    NetworkImageView errorNIV;
+    NetworkImageView demoNIV;
+    CircleNetworkImageView demoCNIV;
+    EditText demoEditText;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
 
-        NetworkImageView errorNIV = (NetworkImageView) findViewById(R.id.error_niv);
-        NetworkImageView demoNIV = (NetworkImageView) findViewById(R.id.demo_niv);
-        CircleNetworkImageView demoCNIV = (CircleNetworkImageView) findViewById(R.id.demo_cniv);
+        errorNIV = (NetworkImageView) findViewById(R.id.error_niv);
+        demoNIV = (NetworkImageView) findViewById(R.id.demo_niv);
+        demoCNIV = (CircleNetworkImageView) findViewById(R.id.demo_cniv);
+        demoEditText = (EditText) findViewById(R.id.gson_demo_et);
 
         // when the url is not valid or the internet is not available
         errorNIV.setErrorImageResId(R.drawable.dummy);
         errorNIV.setDefaultImageResId(R.drawable.dummy);
         errorNIV.setImageUrl(errorUrl, VolleySingleton.getInstance(context).getImageLoader());
 
-        // get the image from testUrl and show it with NetworkImageView
+        // get the image from testImageUrl and show it with NetworkImageView
         demoNIV.setErrorImageResId(R.drawable.dummy);
         demoNIV.setDefaultImageResId(R.drawable.dummy);
-        demoNIV.setImageUrl(testUrl, VolleySingleton.getInstance(context).getImageLoader());
+        demoNIV.setImageUrl(testImageUrl, VolleySingleton.getInstance(context).getImageLoader());
 
-        // get the image from testUrl and show it with CircleNetworkImageView
+        // get the image from testImageUrl and show it with CircleNetworkImageView
         demoCNIV.setErrorImageResId(R.drawable.dummy);
         demoCNIV.setDefaultImageResId(R.drawable.dummy);
-        demoCNIV.setImageUrl(testUrl, VolleySingleton.getInstance(context).getImageLoader());
+        demoCNIV.setImageUrl(testImageUrl, VolleySingleton.getInstance(context).getImageLoader());
 
+        // get the json oject from internet and use GSON to save it
+        GsonRequest<GsonTumblr> getTumblrReuest = new GsonRequest<GsonTumblr>(
+                Request.Method.GET, testGsonUrl, GsonTumblr.class,
+                createGetNotificationReqSuccessListener(),
+                createNotificationReqErrorListener());
+
+        getTumblrReuest.setRetryPolicy(new DefaultRetryPolicy(7000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        getTumblrReuest.setTag("getNotification");
+        VolleySingleton.getInstance(context).getRequestQueue().add(getTumblrReuest);
     }
-}
+
+    private Response.Listener<GsonTumblr> createGetNotificationReqSuccessListener(
+    ) {
+
+        return new Response.Listener<GsonTumblr>() {
+            @Override
+            public void onResponse(GsonTumblr response) {
+                Log.d(TAG, "Success response :" + response.toString());
+                demoEditText.setText(response.toString());
+            }
+        };
+    }
+
+    private Response.ErrorListener createNotificationReqErrorListener() {
+
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.d(TAG, "error response :" + error);
+            }
+        };
+    }
 
 ```
 ## License
