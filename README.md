@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
     NetworkImageView demoNIV;
     CircleNetworkImageView demoCNIV;
     EditText demoEditText;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,16 +78,16 @@ public class MainActivity extends Activity {
         // get the json oject from internet and use GSON to save it
         GsonRequest<GsonTumblr> getTumblrReuest = new GsonRequest<GsonTumblr>(
                 Request.Method.GET, testGsonUrl, GsonTumblr.class,
-                createGetNotificationReqSuccessListener(),
-                createNotificationReqErrorListener());
+                createGetReqSuccessListener(),
+                createReqErrorListener());
 
         getTumblrReuest.setRetryPolicy(new DefaultRetryPolicy(7000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        getTumblrReuest.setTag("getNotification");
+        getTumblrReuest.setTag("getTumblrReuest");
         VolleySingleton.getInstance(context).getRequestQueue().add(getTumblrReuest);
     }
 
-    private Response.Listener<GsonTumblr> createGetNotificationReqSuccessListener(
+    private Response.Listener<GsonTumblr> createGetReqSuccessListener(
     ) {
 
         return new Response.Listener<GsonTumblr>() {
@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
         };
     }
 
-    private Response.ErrorListener createNotificationReqErrorListener() {
+    private Response.ErrorListener createReqErrorListener() {
 
         return new Response.ErrorListener() {
             @Override
@@ -109,7 +109,6 @@ public class MainActivity extends Activity {
             }
         };
     }
-
 ```
 ## License
 Copyright (c) 2014 ~ 2015 - CloudedDragon
