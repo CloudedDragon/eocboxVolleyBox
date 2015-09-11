@@ -1,7 +1,7 @@
-eocboxVolleyBox  
+EocboxVolleyBox  
 ----------
 
-This is a toolbox for integration of [android volley library](https://android.googlesource.com/platform/frameworks/volley) and [OkHttp](https://github.com/square/okhttp)
+This is a toolbox for integration of [Android Volley library](https://android.googlesource.com/platform/frameworks/volley) and [OkHttp](https://github.com/square/okhttp)
 
 * **Android-Volley**
     * Is an HTTP library that makes networking for Android apps easier and most importantly, faster. 
@@ -32,7 +32,7 @@ The project is just for research purpose,not as a commercial activity.
 
 
 
-## example
+## Example
 
 ``` java
 public class MainActivity extends Activity {
