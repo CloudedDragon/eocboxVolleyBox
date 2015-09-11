@@ -11,7 +11,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -54,6 +55,27 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_below="@+id/demo2_tv" />
+
+            <TextView
+                android:id="@+id/gson_demo_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/demo_cniv"
+                android:text="@string/get_json_with_gson_library_description" />
+
+            <EditText
+                android:id="@+id/gson_demo_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gson_demo_tv"
+                android:enabled="false"
+                android:textSize="12sp"
+                android:scrollbarStyle="outsideInset"
+                android:scrollbars="vertical"
+                android:textColor="#ffffffff"
+                android:text="show gson context"
+                />
         </RelativeLayout>
     </ScrollView>
+
 </RelativeLayout>
