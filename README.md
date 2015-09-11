@@ -1,7 +1,7 @@
 EocboxVolleyBox  
 ----------
 
-This is a toolbox for integration of [Android Volley library](https://android.googlesource.com/platform/frameworks/volley) and [OkHttp](https://github.com/square/okhttp)
+This is a toolbox for integration of [Android Volley library](https://android.googlesource.com/platform/frameworks/volley), [OkHttp](https://github.com/square/okhttp) and [Gson](https://github.com/google/gson)
 
 * **Android-Volley**
     * Is an HTTP library that makes networking for Android apps easier and most importantly, faster. 
@@ -21,7 +21,13 @@ This is a toolbox for integration of [Android Volley library](https://android.go
     * Transparent GZIP shrinks download sizes.
     * Response caching avoids the network completely for repeat requests.
 
-
+* **Gson**
+    * Is a Java library that can be used to convert Java Objects into their JSON representation.
+    * Provide simple toJson() and fromJson() methods to convert Java objects to JSON and vice-versa
+    * Allow pre-existing unmodifiable objects to be converted to and from JSON
+    * Extensive support of Java Generics
+    * Allow custom representations for objects
+    * Support arbitrarily complex objects (with deep inheritance hierarchies and extensive use of generic types)
 
 ## Screenshot
 * *Demo for get image from internet*
